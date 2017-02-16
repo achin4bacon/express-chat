@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Chatty Catties!</title>
 	<br><br><center>
-	<h1>Let's Chat!</h1><br>
-	<img src = "http://1.bp.blogspot.com/-cmuTCrNgsd0/T-joVZQPpsI/AAAAAAAAHNQ/mBaJ27wAFB8/w1200-h630-p-k-nu/chatting-with-girlfriend-cats-kitten-kitty-pic-picture-funny-lolcat-cute-fun-lovely-photo-images.jpg" id="cat"> </center>
+	<marquee direction="down" width="500" height="200" behavior="alternate">
+  <marquee behavior="alternate"> <h1>Let's Chat!</h1></marquee></marquee><br>
+	<img src = "http://1.bp.blogspot.com/-cmuTCrNgsd0/T-joVZQPpsI/AAAAAAAAHNQ/mBaJ27wAFB8/w1200-h630-p-k-nu/chatting-with-girlfriend-cats-kitten-kitty-pic-picture-funny-lolcat-cute-fun-lovely-photo-images.jpg" class="purr"> </center>
 	<script
   src="https://code.jquery.com/jquery-3.1.1.js"
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
@@ -24,8 +25,11 @@
   #inputs {
 	  color: darkmagenta
   }
-  #cat{
+  .purr{
 	  border-radius: 50%
+  }
+  h1{
+	  font-size: 60px;
   }
   </style>
 </head>
@@ -35,6 +39,7 @@
 	<button id="send">Send</button>
 	</div>
 	<div id="output"></div>
+	<img src="https://assets.rbl.ms/4140988/980x.jpg" class = "purr">
 	<script>
 
 		function getMessages(){
