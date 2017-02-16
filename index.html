@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Chatty Catties!</title>
+	<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	Username: <input type="text" id="username">Message: <input type="text" id="input">
+	<button id="send">Send</button>
+	<div id="output"></div>
+	<script>
+
+		function getMessages(){
+			$.get("http://localhost:8080/chat", function(res){
+				// res ---> '["chats cleared", "a", "b"]'
+				var msgs = JSON.parse(res);
+				// msgs = ["chats cleared", "a", "b"]
+				$('#output').empty();
+				for (msg of msgs) {
+					var newPara = $('<p></p>');
+					newPara.text(msg); // text, not HTML
+					$('#output').append(newPara);
+				}
+			});
+		}
+
+///convert from unix
+		function timeConverter(UNIX_timestamp){
+		var a = new Date(UNIX_timestamp * 1000);
+		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		var year = a.getFullYear();
+		var month = months[a.getMonth()];
+		var date = a.getDate();
+		var hour = a.getHours();
+		var min = a.getMinutes();
+		var sec = a.getSeconds();
+		var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+		return time;
+		}
+
+		function trackMessages(){
+			$.post("http://localhost:8080/:username", {
+				message: username + " has said " + msg
+			});
+		}
+
+		function sendMessage(){
+			var name = $('#username').val(); 
+			var msg = $('#input').val();
+			//get time in Unix time
+			;
+			$('#input').val(""); 
+			$('#username').val(""); // empty string -> clear input
+			$.post("http://localhost:8080/chat", {
+				message: name + ": " + msg + "......" + timeConverter(Math.round((new Date()).getTime() / 1000)) 
+			}, function(res) {
+				getMessages();
+			});
+		}
+
+		$('#send').click(sendMessage);
+
+		$('#input').keyup(function(event) {
+			if (event.keyCode === 13) {
+				// 13 is "enter" / "return"
+				sendMessage();
+			}
+		});
+
+		$(document).ready(function(){
+			getMessages();
+
+			setInterval(getMessages, 1000);
+		})
+
+	</script>
+</body>
+</html>
+<!--var name = bob;
+app.get('/log/username', function(req, res) {
+  var username = req.param(name);
+  res.send(username);
+});-->
