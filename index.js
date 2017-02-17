@@ -25,14 +25,6 @@ app.use(bodyParser.urlencoded({
 app.get("/", function (req, res) {
 	res.sendFile(__dirname + "/index.html");
 });
-app.set('view engine', 'ejs');
-  ///////////////////////////\\\\\\\\\\\\\\\\\
- //////CONNECT HTML/////////\\\\\\\\\\\\\\\\\\\
-///////////////////////////\\\\\\\\\\\\\\\\\\\\\
-
-app.get("/log/:username", function(req, res){
-
-})
 
   ///////////////////////////\\\\\\\\\\\\\\\\\
  ////////CHAT INFO//////////\\\\\\\\\\\\\\\\\\\
@@ -59,8 +51,17 @@ app.post("/chat", function (req, res) {
  ////////USER INFO/////////\\\\\\\\\\\\\\\\\\\
 //////////////////////////\\\\\\\\\\\\\\\\\\\\\
 
-app.get('/person/:id', function(req, res){
-	res.send('<html><head></head><body>Person: ' +  req.params.id + ' </body></html>')
+app.get('/person/:name', function(req, res){
+	var namey  = req.params.name;
+	var dumbArr = [];
+	for (var i = 0; i < messages.length; i++){
+		if (messages[i].name === namey){
+			dumbArr.push(messages[i].msg)
+		}
+	}
+	res.send(JSON.stringify(dumbArr));
+		
+	
 });
 
   ///////////////////////////\\\\\\\\\\\\\\\\\\\\\\
